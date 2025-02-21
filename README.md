@@ -5,7 +5,8 @@
 ### Assumptions:
 This script was designed to work with 32bit and 64bit chroot Linux environments for the RK3326 chipset. \
 See [this document](https://github.com/christianhaitian/rk3326_core_builds/blob/main/docs/chroot.md) for instructions on how to create them yourself. \
-You can also download a prebuilt one I created by following the information [here](https://forum.odroid.com/viewtopic.php?p=306185#p306185)
+You can also download a prebuilt one I created by following the information [here](https://forum.odroid.com/viewtopic.php?p=306185#p306185) \
+Or you can use a [Docker container](https://github.com/cscribn/rk-core-builder) contributed by [Chad Scribner](https://github.com/cscribn).
 
 This script is designed to only build cores, retroarch and PPSSPP that are compatible with the aarch64 or armhf environment it's run from.  So to build cores for the 32bit armhf environment, it should be run from an arm32 environment such as a 32bit chroot.
 
@@ -40,8 +41,17 @@ cd rk3326_core_builds
 ### To build just arduous (64bit only):
 `./builds.sh arduous`
 
+### To build just ardens (64bit only):
+`./builds.sh ardens`
+
 ### To build just atari800 (64bit only):
 `./builds.sh atari800`
+
+### To build just b2 (64bit only):
+`./builds.sh b2`
+
+### To build just beetle-psx (64bit only):
+`./builds.sh beetle-psx`
 
 ### To build just bluemsx (64bit only):
 `./builds.sh bluemsx`
@@ -52,14 +62,20 @@ cd rk3326_core_builds
 ### To build just crocods (64bit only):
 `./builds.sh crocods`
 
+### To build just chimerasnes (64bit only):
+`./builds.sh chimerasnes`
+
 ### To build DevilutionX (64bit only)
-`./builds.sh devilutionx
+`./builds.sh devilutionx`
 
 ### To build just dosbox_pure (64bit only):
 `./builds.sh dosbox_pure`
 
 ### To build just desmume2015 (64bit only):
 `./builds.sh desmume2015`
+
+### To build just doukutsu-rs (64bit only):
+`./builds.sh doukutsu-rs-lr`
 
 ### To download and unpack duckstation (64bit only):
 `./builds.sh duckstation`
@@ -70,8 +86,14 @@ cd rk3326_core_builds
 ### To build just easyrpg (64bit only):
 `./builds.sh easyrpg`
 
+### To build just ecwolf libretro emulator (64bit only):
+`./builds.sh ecwolf`
+
 ### To build just ecwolf standalone emulator (64bit only):
-`./builds.sh ecwolfsa
+`./builds.sh ecwolfsa`
+
+### To build just emuscv (64bit only):
+`./builds.sh emuscv`
 
 ### To build just ep128emu (64bit only):
 `./builds.sh ep128emu`
@@ -85,11 +107,20 @@ cd rk3326_core_builds
 ### To build just fbneo (64bit only):
 `./builds.sh fbneo`
 
+### To build just fbneo-kmfd (FBNeo-Xtreme-Amped) (64bit only):
+`./builds.sh fbneo-kmfd`
+
 ### To build just fbneo standalone emulator (64bit only):
 `./builds.sh fbneosa`
 
 ### To build just freeintv:
 `./builds.sh freeintv`
+
+### To build just freej2me:
+`./builds.sh freej2me`
+
+### To build just freej2me-plus:
+`./builds.sh freej2me-plus`
 
 ### To build just gambatte (64bit only):
 `./builds.sh gambatte`
@@ -114,6 +145,12 @@ cd rk3326_core_builds
 
 ### To build just handy (64bit only):
 `./builds.sh handy`
+
+### To build just hatari (64bit only):
+`./builds.sh hatari`
+
+### To build just hatarib (64bit only):
+`./builds.sh hatarib`
 
 ### To build just fceumm (64bit only):
 `./builds.sh fceumm`
@@ -181,6 +218,9 @@ cd rk3326_core_builds
 ### To build just microvision Standalone emulator:
 `./builds.sh microvisionsa`
 
+### To build just minivmac (64bit only):
+`./builds.sh minivmac`
+
 ### To build just mu:
 `./builds.sh mu`
 
@@ -214,6 +254,9 @@ cd rk3326_core_builds
 ### To build just onscripter (64bit only):
 `./builds.sh onscripter`
 
+### To build just onscripterYuri (64bit only):
+`./builds.sh onscripteryuri`
+
 ### To build just openbor (64bit only):
 `./builds.sh openbor`
 
@@ -222,6 +265,9 @@ cd rk3326_core_builds
 
 ### To build just opera (64bit only):
 `./builds.sh opera`
+
+### To build just piemu standalone emulator (64bit only):
+`./builds.sh piemusa`
 
 ### To build just potator (64bit only):
 `./builds.sh potator`
@@ -243,6 +289,9 @@ cd rk3326_core_builds
 
 ### To build just puae2021 (64bit Only):
 `./builds.sh puae2021`
+
+### To build just puzzlescript (64bit only):
+`./builds.sh puzzlescript`
 
 ### To build just px68k (64bit Only):
 `./builds.sh px68k`
@@ -285,6 +334,9 @@ cd rk3326_core_builds
 
 ### To build just scummvm libretro (64bit only):
 `./builds.sh scummvm-libretro`
+
+### To build just smsplus-gx libretro (64bit only):
+`./builds.sh smsplus-gx`
 
 ### To build just solarus standalone (64bit only):
 `./builds.sh solarus`
@@ -334,6 +386,9 @@ cd rk3326_core_builds
 ### To build just vice cores:
 `./builds.sh vice`
 
+### To build just vircon32 core (64bit only):
+`./builds.sh vircon32`
+
 ### To build just virtualboy (64bit only):
 `./builds.sh vb`
 
@@ -351,6 +406,9 @@ cd rk3326_core_builds
 
 ### To build just yabause:
 `./builds.sh yabause`
+
+### To build just yapesdl standalone:
+`./builds.sh yapesdlsa`
 
 ### To build just x1 (64bit only):
 `./builds.sh x1`
@@ -373,8 +431,14 @@ cd rk3326_core_builds
 ### To build Emulationstation-fcamod (64bit only)
 `./builds.sh es_build`
 
+### To build Network Manager
+`./builds.sh NetworkManager`
+
 ### To build SDL 2.0.28.2
 `./builds.sh sdl2`
+
+### To build wpasupplicant
+`./builds.sh wpa_supplicant`
 
 ### To update the retroarch-cores repo with new or updated cores:
 `./builds.sh update`

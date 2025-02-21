@@ -17,7 +17,13 @@ bitness="$(getconf LONG_BIT)"
 #commit="8c9beb0c873f6ca5efbd88f1ad2648bfc793b2ac" # SDL 2.0.24.0
 #commit="ac13ca9ab691e13e8eebe9684740ddcb0d716203" # SDL 2.0.26.5
 #commit="031912c4b6c5db80b443f04aa56fec3e4e645153" # SDL 2.0.28.2
-commit="f461d91cd265d7b9a44b4d472b1df0c0ad2855a0" # SDL 2.0.30.2
+#commit="f461d91cd265d7b9a44b4d472b1df0c0ad2855a0" # SDL 2.0.30.2
+#commit="fb1497566c5a05e2babdcf45ef0ab5c7cca2c4ae" # SDL 2.0.30.3
+#commit="2eef7ca475decd2b864214cdbfe72b143b16d459" # SDL 2.0.30.5 (BAD)
+#commit="7ca3d26e7aa0ff1f7ba48eee2f35ac5fb4de0057" # SDL 2.0.30.6 (Bad)
+#commit="release-2.30.x"
+commit="9c821dc21ccbd69b2bda421fdb35cb4ae2da8f5e" # SDL 2.0.30.10
+extension="3000.10"
 
 	# sdl2 Standalone Build
 	if [[ "$var" == "sdl2" ]]; then
@@ -123,6 +129,7 @@ commit="f461d91cd265d7b9a44b4d472b1df0c0ad2855a0" # SDL 2.0.30.2
 
       #../configure --prefix=$PWD/bin$bitness
 	  #make clean
+	  git revert -n e5024fae3decb724e397d3c9dbcb744d8c79aac1
 	  make -j$(nproc)
 	  #make install
 
@@ -133,9 +140,9 @@ commit="f461d91cd265d7b9a44b4d472b1df0c0ad2855a0" # SDL 2.0.30.2
 	  fi
 
       if [[ $bitness == "32" ]]; then
-	     strip build/.libs/libSDL2-2.0.so.0.3000.2
+	     strip build/.libs/libSDL2-2.0.so.0.$extension
 	  else
-	     strip libSDL2-2.0.so.0.3000.2
+	     strip libSDL2-2.0.so.0.$extension
 	  fi
 
 	  if [ ! -d "$cur_wd/sdl2-$bitness/" ]; then
@@ -143,9 +150,9 @@ commit="f461d91cd265d7b9a44b4d472b1df0c0ad2855a0" # SDL 2.0.30.2
 	  fi
 
       if [[ $bitness == "32" ]]; then
-	     cp build/.libs/libSDL2-2.0.so.0.3000.2 $cur_wd/sdl2-$bitness/.
+	     cp build/.libs/libSDL2-2.0.so.0.$extension $cur_wd/sdl2-$bitness/.
 	  else
-	     cp libSDL2-2.0.so.0.3000.2 $cur_wd/sdl2-$bitness/.
+	     cp libSDL2-2.0.so.0.$extension $cur_wd/sdl2-$bitness/.
 	  fi
 
 	  echo " "
@@ -183,11 +190,11 @@ commit="f461d91cd265d7b9a44b4d472b1df0c0ad2855a0" # SDL 2.0.30.2
 	  fi
 
       if [[ $bitness == "32" ]]; then
-	     strip build/.libs/libSDL2-2.0.so.0.3000.2
-	     cp build/.libs/libSDL2-2.0.so.0.3000.2 $cur_wd/sdl2-$bitness/libSDL2-2.0.so.0.3000.2.rotated
+	     strip build/.libs/libSDL2-2.0.so.0.$extension
+	     cp build/.libs/libSDL2-2.0.so.0.$extension $cur_wd/sdl2-$bitness/libSDL2-2.0.so.0.$extension.rotated
 	  else
-	     strip libSDL2-2.0.so.0.3000.2
-	     cp libSDL2-2.0.so.0.3000.2 $cur_wd/sdl2-$bitness/libSDL2-2.0.so.0.3000.2.rotated
+	     strip libSDL2-2.0.so.0.$extension
+	     cp libSDL2-2.0.so.0.$extension $cur_wd/sdl2-$bitness/libSDL2-2.0.so.0.$extension.rotated
       fi
 
 	  echo " "

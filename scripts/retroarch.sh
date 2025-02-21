@@ -11,6 +11,7 @@
 
 cur_wd="$PWD"
 bitness="$(getconf LONG_BIT)"
+tag="v1.20.0"
 
 	# Libretro Retroarch build
 	if [[ "$var" == "retroarch" ]]; then
@@ -26,9 +27,10 @@ bitness="$(getconf LONG_BIT)"
 	  fi
 
 	 cd retroarch/
+	 git checkout ${tag}
 
 	 # Revert change in Retroarch 1.18 of how content directory and save sorting settings work
-	 git revert 338c9a4fe441899e98c95ab082e18ddb5f931e49 --no-edit
+	 #git revert 338c9a4fe441899e98c95ab082e18ddb5f931e49 --no-edit
 
 	 retroarch_patches=$(find *.patch)
 	 
@@ -55,6 +57,7 @@ bitness="$(getconf LONG_BIT)"
 	    CFLAGS="-Ofast -march=armv8-a -mtune=cortex-a35 -fomit-frame-pointer -DNDEBUG" ./configure --disable-caca \
 	    --disable-mali_fbdev \
 	    --disable-opengl \
+	    --disable-opengl_core \
 	    --disable-opengl1 \
 	    --disable-qt \
 	    --disable-sdl \
@@ -88,6 +91,7 @@ bitness="$(getconf LONG_BIT)"
 	    CFLAGS="-Ofast -march=armv8-a -mtune=cortex-a35 -mfpu=neon-fp-armv8 -mfloat-abi=hard -fomit-frame-pointer -DNDEBUG" ./configure --disable-caca \
 	    --disable-mali_fbdev \
 	    --disable-opengl \
+	    --disable-opengl_core \
 	    --disable-opengl1 \
 	    --disable-qt \
 	    --disable-sdl \

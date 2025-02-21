@@ -1,15 +1,44 @@
 diff --git a/src/platform/libretro/libretro.c b/src/platform/libretro/libretro.c
-index 5726fe654..51abd9c58 100644
+index d91cf8e33..d2f2c7031 100644
 --- a/src/platform/libretro/libretro.c
 +++ b/src/platform/libretro/libretro.c
-@@ -1728,12 +1728,29 @@ void retro_run(void) {
+@@ -4,6 +4,9 @@
+  * License, v. 2.0. If a copy of the MPL was not distributed with this
+  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+ #include "libretro.h"
++#include <unistd.h>
++#include <errno.h>
++#include <stdio.h>
+ 
+ #include <mgba-util/common.h>
+ 
+@@ -1130,6 +1133,16 @@ static void _initRumble(void) {
+ 	struct retro_rumble_interface rumbleInterface;
+ 	if (environCallback(RETRO_ENVIRONMENT_GET_RUMBLE_INTERFACE, &rumbleInterface)) {
+ 		rumbleCallback = rumbleInterface.set_rumble_state;
++     // Check write access for duty cycle for rk3566
++     char* filepath = "/sys/class/pwm/pwmchip1/pwm0/duty_cycle";
++     int returnval;
++     returnval = access (filepath, F_OK);
++     if (returnval == 0){
++       returnval = access (filepath, W_OK);
++       if (errno == EACCES){
++         system("sudo chmod 777 /sys/class/pwm/pwmchip1/pwm0/duty_cycle &");
++       }
++     }
+ 	}
+ 
+ 	rumbleInitDone = true;
+@@ -1722,13 +1735,32 @@ void retro_run(void) {
  #endif
  
  	if (rumbleCallback) {
-+        FILE *file;
- 		if (rumbleUp) {
+-		if (rumbleUp) {
 -			rumbleCallback(0, RETRO_RUMBLE_STRONG, rumbleUp * 0xFFFF / (rumbleUp + rumbleDown));
 -			rumbleCallback(0, RETRO_RUMBLE_WEAK, rumbleUp * 0xFFFF / (rumbleUp + rumbleDown));
++
++        FILE *file;
++ 		if (rumbleUp) {
 +            if ((file = fopen("/sys/class/pwm/pwmchip0/pwm0/duty_cycle", "r+"))) {
 +               fputs("10", file);
 +               fclose(file);
@@ -34,5 +63,7 @@ index 5726fe654..51abd9c58 100644
 +			   rumbleCallback(0, RETRO_RUMBLE_WEAK, 0);
 +			}
  		}
++
  		rumbleUp = 0;
  		rumbleDown = 0;
+ 	}
