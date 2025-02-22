@@ -13,7 +13,7 @@ This script is designed to only build cores, retroarch and PPSSPP that are compa
 ## How to use: (In a aarch64 chroot or armhf chroot or building from Ubuntu based distro on a RK3326 device)
 
 ```
-git clone https://github.com/christianhaitian/rk3326_core_builds.git
+git clone https://github.com/AeolusUX/rk3326_core_builds.git
 cd rk3326_core_builds
 ```
 
