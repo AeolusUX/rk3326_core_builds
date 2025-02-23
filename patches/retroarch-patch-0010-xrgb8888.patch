@@ -1,7 +1,7 @@
 diff --git a/gfx/drivers_context/drm_go2_ctx.c b/gfx/drivers_context/drm_go2_ctx.c
 --- a/gfx/drivers_context/drm_go2_ctx.c
 +++ b/gfx/drivers_context/drm_go2_ctx.c
-@@ -126,7 +126,7 @@
+@@ -126,7 +126,7 @@ static void *gfx_ctx_go2_drm_init(void *video_driver)
     }
 
     drm->presenter     = go2_presenter_create(drm->display,
