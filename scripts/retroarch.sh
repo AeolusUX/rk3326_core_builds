@@ -11,7 +11,7 @@
 
 cur_wd="$PWD"
 bitness="$(getconf LONG_BIT)"
-tag="v1.20.0"
+tag="v1.21.0"
 
 	# Libretro Retroarch build
 	if [[ "$var" == "retroarch" ]]; then
@@ -66,6 +66,8 @@ tag="v1.20.0"
 	    --disable-vulkan_display \
 	    --disable-wayland \
 	    --disable-x11 \
+            --disable-jack \
+	    --disable-pulse \
         --disable-xrandr \
         --disable-winrawinput \
         --disable-gdi \
@@ -100,6 +102,8 @@ tag="v1.20.0"
 	    --disable-vulkan_display \
 	    --disable-wayland \
 	    --disable-x11 \
+            --disable-jack \
+	    --disable-pulse \
         --disable-xrandr \
         --disable-winrawinput \
         --disable-gdi \

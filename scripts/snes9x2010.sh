@@ -12,25 +12,25 @@
 cur_wd="$PWD"
 bitness="$(getconf LONG_BIT)"
 
-	# Libretro fbneo build
-	if [[ "$var" == "fbneo" || "$var" == "all" ]] && [[ "$bitness" == "64" ]]; then
+	# Libretro snes9x2010 build
+	if [[ "$var" == "snes9x2010" || "$var" == "all" ]]; then
 	 cd $cur_wd
-	  if [ ! -d "fbneo/" ]; then
-		git clone https://github.com/libretro/fbneo.git
+	  if [ ! -d "snes9x2010/" ]; then
+		git clone https://github.com/libretro/snes9x2010.git
 		if [[ $? != "0" ]]; then
 		  echo " "
 		  echo "There was an error while cloning the libretro git.  Is Internet active or did the git location change?  Stopping here."
 		  exit 1
-		fi
-		cp patches/fbneo-patch* fbneo/.
+		 fi
+		cp patches/snes9x2010-patch* snes9x2010/.
 	  fi
 
-	 cd fbneo/
+	 cd snes9x2010/
 	 
-	 fbneo_patches=$(find *.patch)
+	 snes9x2010_patches=$(find *.patch)
 	 
-	  if [[ ! -z "$fbneo_patches" ]]; then
-	  for patching in fbneo-patch*
+	 if [[ ! -z "$snes9x2010_patches" ]]; then
+	  for patching in snes9x2010-patch*
 	  do
 		   patch -Np1 < "$patching"
 		   if [[ $? != "0" ]]; then
@@ -40,29 +40,28 @@ bitness="$(getconf LONG_BIT)"
 		   fi
 		   rm "$patching" 
 	  done
-	 fi 
-	 
-	  sed -i '/a53/s//a35/g' src/burner/libretro/Makefile
-      make -C ./src/burner/libretro clean
-	  make -C ./src/burner/libretro profile=performance platform=rpi3_64 -j$(nproc)
+	 fi
+
+	  make clean
+	  make -f Makefile.libretro -j$(nproc)
 
 	  if [[ $? != "0" ]]; then
 		echo " "
-		echo "There was an error while building the newest lr-fbneo core.  Stopping here."
+		echo "There was an error while building the newest lr-snes9x2010 core.  Stopping here."
 		exit 1
 	  fi
 
-	  strip src/burner/libretro/fbneo_libretro.so
+	  strip snes9x2010_libretro.so
 
-	  if [ ! -d "../cores64/" ]; then
-		mkdir -v ../cores64
+	  if [ ! -d "../cores$(getconf LONG_BIT)/" ]; then
+		mkdir -v ../cores$(getconf LONG_BIT)
 	  fi
 
-	  cp src/burner/libretro/fbneo_libretro.so ../cores64/.
+	  cp snes9x2010_libretro.so ../cores$(getconf LONG_BIT)/.
 
 	  gitcommit=$(git log | grep -m 1 commit | cut -c -14 | cut -c 8-)
-	  echo $gitcommit > ../cores$(getconf LONG_BIT)/$(basename $PWD)_libretro.so.commit
+	  echo $gitcommit > ../cores$(getconf LONG_BIT)/snes9x2010_libretro.so.commit
 
 	  echo " "
-	  echo "fbneo_libretro.so has been created and has been placed in the rk3326_core_builds/cores64 subfolder"
+	  echo "snes9x2010_libretro.so has been created and has been placed in the rk3326_core_builds/cores$(getconf LONG_BIT) subfolder"
 	fi

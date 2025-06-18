@@ -12,25 +12,25 @@
 cur_wd="$PWD"
 bitness="$(getconf LONG_BIT)"
 
-	# Libretro fbneo build
-	if [[ "$var" == "fbneo" || "$var" == "all" ]] && [[ "$bitness" == "64" ]]; then
+	# Libretro bk build
+	if [[ "$var" == "bk" || "$var" == "all" ]] && [[ "$bitness" == "64" ]]; then
 	 cd $cur_wd
-	  if [ ! -d "fbneo/" ]; then
-		git clone https://github.com/libretro/fbneo.git
+	  if [ ! -d "bk-emulator/" ]; then
+		git clone https://github.com/libretro/bk-emulator.git
 		if [[ $? != "0" ]]; then
 		  echo " "
 		  echo "There was an error while cloning the libretro git.  Is Internet active or did the git location change?  Stopping here."
 		  exit 1
-		fi
-		cp patches/fbneo-patch* fbneo/.
+		 fi
+		cp patches/bk-patch* bk-emulator/.
 	  fi
 
-	 cd fbneo/
+	 cd bk-emulator/
 	 
-	 fbneo_patches=$(find *.patch)
+	 bk_patches=$(find *.patch)
 	 
-	  if [[ ! -z "$fbneo_patches" ]]; then
-	  for patching in fbneo-patch*
+	 if [[ ! -z "$bk_patches" ]]; then
+	  for patching in bk-patch*
 	  do
 		   patch -Np1 < "$patching"
 		   if [[ $? != "0" ]]; then
@@ -40,29 +40,28 @@ bitness="$(getconf LONG_BIT)"
 		   fi
 		   rm "$patching" 
 	  done
-	 fi 
-	 
-	  sed -i '/a53/s//a35/g' src/burner/libretro/Makefile
-      make -C ./src/burner/libretro clean
-	  make -C ./src/burner/libretro profile=performance platform=rpi3_64 -j$(nproc)
+	 fi
+
+	  make clean
+	  make -f Makefile.libretro -j$(nproc)
 
 	  if [[ $? != "0" ]]; then
 		echo " "
-		echo "There was an error while building the newest lr-fbneo core.  Stopping here."
+		echo "There was an error while building the newest lr-bk core.  Stopping here."
 		exit 1
 	  fi
 
-	  strip src/burner/libretro/fbneo_libretro.so
+	  strip bk_libretro.so
 
 	  if [ ! -d "../cores64/" ]; then
 		mkdir -v ../cores64
 	  fi
 
-	  cp src/burner/libretro/fbneo_libretro.so ../cores64/.
+	  cp bk_libretro.so ../cores64/.
 
 	  gitcommit=$(git log | grep -m 1 commit | cut -c -14 | cut -c 8-)
-	  echo $gitcommit > ../cores$(getconf LONG_BIT)/$(basename $PWD)_libretro.so.commit
+	  echo $gitcommit > ../cores$(getconf LONG_BIT)/bk_libretro.so.commit
 
 	  echo " "
-	  echo "fbneo_libretro.so has been created and has been placed in the rk3326_core_builds/cores64 subfolder"
+	  echo "bk_libretro.so has been created and has been placed in the rk3326_core_builds/cores64 subfolder"
 	fi
